@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Todo App</title>
+</head>
+
+<body>
+  <div id="todo-app">
+    <h1>Todo App</h1>
+
+    <div class="new-todo">
+      <form class="add-form" @submit.prevent="addTodo">
+        <input type="text" ref="newText">
+        <button type="submit">追加する</button>
+      </form>
+    </div>
+
+    <div class="todo-list">
+      <ul id="todo-list">
+        <li v-for="todo in todos" :key="todo.id">
+          {{ todo.text }}
+          <button>削除</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
+
