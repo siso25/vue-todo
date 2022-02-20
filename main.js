@@ -8,26 +8,6 @@ const saveStorage = (todos) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
 }
 
-const createTodo = (todoText) => {
-  const todos = fetchStorage()
-  const newId = createId(todos)
-  todos.push({
-    id: newId,
-    text: todoText
-  })
-  saveStorage(todos)
-}
-
-const createId = (todos) => {
-  console.log(todos)
-  if (todos.length === 0) {
-    return 1
-  }
-
-  const maxId = Math.max(...todos.map(todo => todo.id))
-  return maxId + 1
-}
-
 const app = Vue.createApp({
   data() {
     return {
@@ -44,8 +24,26 @@ const app = Vue.createApp({
         return
       }
 
-      createTodo(newText.value)
+      const newId = this.createId(this.todos)
+      this.todos.push({
+        id: newId,
+        text: newText.value
+      })
+      saveStorage(this.todos)
+
       newText.value = ''
+    },
+    deleteTodo(targetTodo) {
+      this.todos = this.todos.filter(todo => todo.id !== targetTodo.id)
+      saveStorage(this.todos)
+    },
+    createId(todos) {
+      console.log(todos)
+      if (todos.length === 0) {
+        return 1
+      }
+      const maxId = Math.max(...todos.map(todo => todo.id))
+      return maxId + 1
     }
   }
 })

@@ -21,7 +21,7 @@
       <ul id="todo-list">
         <li v-for="todo in todos" :key="todo.id">
           {{ todo.text }}
-          <button>削除</button>
+          <button @click="deleteTodo(todo)">削除</button>
         </li>
       </ul>
     </div>
