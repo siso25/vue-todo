@@ -27,23 +27,31 @@ const app = Vue.createApp({
       const newId = this.createId(this.todos)
       this.todos.push({
         id: newId,
-        text: newText.value
+        text: newText.value,
+        isEditing: false
       })
       saveStorage(this.todos)
 
       newText.value = ''
     },
-    deleteTodo(targetTodo) {
-      this.todos = this.todos.filter(todo => todo.id !== targetTodo.id)
-      saveStorage(this.todos)
-    },
     createId(todos) {
-      console.log(todos)
       if (todos.length === 0) {
         return 1
       }
       const maxId = Math.max(...todos.map(todo => todo.id))
       return maxId + 1
+    },
+    editTodo(todo) {
+      todo.isEditing = true
+      this.$nextTick(() => document.getElementById('edit-todo').focus())
+    },
+    updateTodo(todo) {
+      todo.isEditing = false
+      saveStorage(this.todos)
+    },
+    deleteTodo(targetTodo) {
+      this.todos = this.todos.filter(todo => todo.id !== targetTodo.id)
+      saveStorage(this.todos)
     }
   }
 })

@@ -18,12 +18,19 @@
     </div>
 
     <div class="todo-list">
-      <ul id="todo-list">
-        <li v-for="todo in todos" :key="todo.id">
-          {{ todo.text }}
-          <button @click="deleteTodo(todo)">削除</button>
-        </li>
-      </ul>
+      <table>
+        <tr v-for="todo in todos" :key="todo.id">
+          <td v-if="todo.isEditing">
+            <input type="text" id="edit-todo" @blur="updateTodo(todo)" v-model="todo.text">
+          </td>
+          <td v-else @click="editTodo(todo)">
+            {{ todo.text }}
+          </td>
+          <td>
+            <button @click="deleteTodo(todo)">削除</button>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 
