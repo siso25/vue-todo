@@ -4,34 +4,38 @@
 <head>
   <meta charset="utf-8">
   <title>Todo App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <link rel="stylesheet" href="./main.css">
 </head>
 
 <body>
-  <div id="todo-app">
-    <h1>Todo App</h1>
+  <div id="todo-app" class="content container">
+    <h1 class="mb-5">Todo App</h1>
 
-    <div class="new-todo">
-      <form class="add-form" @submit.prevent="addTodo">
-        <input type="text" ref="newText">
-        <button type="submit">追加する</button>
-      </form>
-    </div>
+    <form class="columns" @submit.prevent="addTodo">
+      <div class="column">
+        <input type="text" class="input" ref="newText">
+      </div>
+      <div class="column">
+        <button type="submit" class="button">追加する</button>
+      </div>
+    </form>
 
-    <div class="todo-list">
-      <table>
-        <tr v-for="todo in todos" :key="todo.id">
-          <td v-if="todo.isEditing">
-            <input type="text" id="edit-todo" @blur="updateTodo(todo)" v-model="todo.text">
+    <table class="ml-6">
+      <tbody>
+        <tr v-for="todo in todos" :key="todo.id" class="columns">
+          <td v-if="todo.isEditing" class="column is-half">
+            <input type="text" id="edit-todo" class="input" @blur="updateTodo(todo)" v-model="todo.text">
           </td>
-          <td v-else @click="editTodo(todo)">
+          <td v-else @click="editTodo(todo)" class="column is-half is-vertical-center">
             {{ todo.text }}
           </td>
-          <td>
-            <button @click="deleteTodo(todo)">削除</button>
+          <td class="column is-1 is-centered">
+            <button class="button" @click="deleteTodo(todo)">削除</button>
           </td>
         </tr>
-      </table>
-    </div>
+      </tbody>
+    </table>
   </div>
 
   <script src="https://unpkg.com/vue@next"></script>

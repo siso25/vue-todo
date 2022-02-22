@@ -9,16 +9,16 @@ const saveStorage = (todos) => {
 }
 
 const app = Vue.createApp({
-  data() {
+  data () {
     return {
       todos: []
     }
   },
-  created() {
+  created () {
     this.todos = fetchStorage()
   },
   methods: {
-    addTodo() {
+    addTodo () {
       const newText = this.$refs.newText
       if (!newText.value.trim) {
         return
@@ -34,22 +34,22 @@ const app = Vue.createApp({
 
       newText.value = ''
     },
-    createId(todos) {
+    createId (todos) {
       if (todos.length === 0) {
         return 1
       }
       const maxId = Math.max(...todos.map(todo => todo.id))
       return maxId + 1
     },
-    editTodo(todo) {
+    editTodo (todo) {
       todo.isEditing = true
       this.$nextTick(() => document.getElementById('edit-todo').focus())
     },
-    updateTodo(todo) {
+    updateTodo (todo) {
       todo.isEditing = false
       saveStorage(this.todos)
     },
-    deleteTodo(targetTodo) {
+    deleteTodo (targetTodo) {
       this.todos = this.todos.filter(todo => todo.id !== targetTodo.id)
       saveStorage(this.todos)
     }
